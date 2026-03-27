@@ -2,11 +2,12 @@ import streamlit as st
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-from frontend.utils import api_get, api_post, api_put, get_selected_student_id, require_api_key
+from frontend.utils import api_get, api_post, api_put, get_selected_student_id, require_api_key, check_role
 
 st.set_page_config(page_title="Teacher Portal", layout="wide")
 st.title("Teacher Portal")
 
+check_role(["teacher"])
 student_id = get_selected_student_id()
 if not student_id:
     st.warning("Select a student from the sidebar.")

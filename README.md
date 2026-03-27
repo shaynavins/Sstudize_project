@@ -1,14 +1,5 @@
----
-title: Sstudize
-emoji: 📚
-colorFrom: blue
-colorTo: green
-sdk: docker
-app_port: 8501
-pinned: false
----
 
-# 📚 Sstudize — Personalized Study Roadmap System
+# Personalized Study System
 
 An AI-driven personalized study roadmap system for competitive exam preparation (JEE/NEET), featuring agentic AI monitoring, human-in-the-loop oversight, and multi-stakeholder dashboards.
 

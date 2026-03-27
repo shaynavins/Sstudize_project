@@ -75,3 +75,14 @@ def get_student_list():
 
 def get_selected_student_id():
     return st.session_state.get("selected_student_id")
+
+
+def check_role(allowed_roles):
+    role = st.session_state.get("user_role")
+    if not role:
+        st.warning("Please login from the Home page.")
+        st.stop()
+    if role not in allowed_roles:
+        st.error(f"Access denied. This page is for {', '.join(allowed_roles)} only.")
+        st.stop()
+    return role
