@@ -1,0 +1,99 @@
+{
+  "students": [
+    {
+      "name": "Arjun Sharma",
+      "grade": "12th",
+      "exam_target": "JEE Main",
+      "target_score": 250,
+      "current_score": 180,
+      "study_hours_per_day": 7.0,
+      "subjects": {"Physics": 75, "Chemistry": 60, "Mathematics": 80},
+      "strengths": ["Mechanics", "Algebra", "Coordinate Geometry"],
+      "weaknesses": ["Thermodynamics", "Organic Chemistry", "Calculus"],
+      "performance_metrics": [
+        {"subject": "Physics", "topic": "Mechanics", "score": 85, "test_type": "mock", "date_taken": "2026-03-01", "time_spent_minutes": 45},
+        {"subject": "Physics", "topic": "Thermodynamics", "score": 42, "test_type": "mock", "date_taken": "2026-03-01", "time_spent_minutes": 50},
+        {"subject": "Physics", "topic": "Electrostatics", "score": 70, "test_type": "practice", "date_taken": "2026-03-05", "time_spent_minutes": 30},
+        {"subject": "Chemistry", "topic": "Organic Chemistry", "score": 48, "test_type": "mock", "date_taken": "2026-03-01", "time_spent_minutes": 55},
+        {"subject": "Chemistry", "topic": "Physical Chemistry", "score": 72, "test_type": "practice", "date_taken": "2026-03-08", "time_spent_minutes": 40},
+        {"subject": "Chemistry", "topic": "Inorganic Chemistry", "score": 65, "test_type": "mock", "date_taken": "2026-03-01", "time_spent_minutes": 35},
+        {"subject": "Mathematics", "topic": "Algebra", "score": 88, "test_type": "mock", "date_taken": "2026-03-01", "time_spent_minutes": 40},
+        {"subject": "Mathematics", "topic": "Calculus", "score": 55, "test_type": "mock", "date_taken": "2026-03-01", "time_spent_minutes": 60},
+        {"subject": "Mathematics", "topic": "Coordinate Geometry", "score": 82, "test_type": "practice", "date_taken": "2026-03-10", "time_spent_minutes": 35},
+        {"subject": "Physics", "topic": "Mechanics", "score": 88, "test_type": "practice", "date_taken": "2026-03-12", "time_spent_minutes": 40},
+        {"subject": "Physics", "topic": "Thermodynamics", "score": 50, "test_type": "practice", "date_taken": "2026-03-14", "time_spent_minutes": 55},
+        {"subject": "Mathematics", "topic": "Calculus", "score": 60, "test_type": "practice", "date_taken": "2026-03-15", "time_spent_minutes": 50}
+      ],
+      "tasks": [
+        {"subject": "Physics", "topic": "Thermodynamics", "description": "Complete HC Verma Chapter 23-26 problems", "task_type": "practice", "priority": "high", "estimated_hours": 2.0, "scheduled_date": "2026-03-17", "completed": true, "resources": [{"type": "book", "title": "HC Verma Vol 2", "url": ""}]},
+        {"subject": "Physics", "topic": "Thermodynamics", "description": "Watch Unacademy lecture on Laws of Thermodynamics", "task_type": "study", "priority": "high", "estimated_hours": 1.5, "scheduled_date": "2026-03-17", "completed": true, "resources": [{"type": "video", "title": "Thermo Laws Lecture", "url": "https://example.com/thermo"}]},
+        {"subject": "Chemistry", "topic": "Organic Chemistry", "description": "Revise reaction mechanisms: SN1, SN2, E1, E2", "task_type": "revision", "priority": "high", "estimated_hours": 2.0, "scheduled_date": "2026-03-18", "completed": false, "resources": [{"type": "pdf", "title": "Reaction Mechanisms Summary", "url": ""}]},
+        {"subject": "Chemistry", "topic": "Organic Chemistry", "description": "Solve 30 named reactions practice problems", "task_type": "practice", "priority": "medium", "estimated_hours": 1.5, "scheduled_date": "2026-03-18", "completed": false, "resources": []},
+        {"subject": "Mathematics", "topic": "Calculus", "description": "Practice integration by parts — 20 problems", "task_type": "practice", "priority": "high", "estimated_hours": 2.0, "scheduled_date": "2026-03-19", "completed": false, "resources": [{"type": "pdf", "title": "Integration Practice Set", "url": ""}]},
+        {"subject": "Mathematics", "topic": "Calculus", "description": "Revise limits and continuity formulas", "task_type": "revision", "priority": "medium", "estimated_hours": 1.0, "scheduled_date": "2026-03-19", "completed": true, "resources": []},
+        {"subject": "Physics", "topic": "Electrostatics", "description": "Solve previous year JEE questions on Coulomb's Law", "task_type": "practice", "priority": "medium", "estimated_hours": 1.5, "scheduled_date": "2026-03-20", "completed": false, "resources": [{"type": "pdf", "title": "PYQ Electrostatics", "url": ""}]},
+        {"subject": "Chemistry", "topic": "Physical Chemistry", "description": "Practice mole concept and stoichiometry problems", "task_type": "practice", "priority": "medium", "estimated_hours": 1.5, "scheduled_date": "2026-03-20", "completed": false, "resources": []}
+      ]
+    },
+    {
+      "name": "Priya Patel",
+      "grade": "12th",
+      "exam_target": "NEET",
+      "target_score": 650,
+      "current_score": 520,
+      "study_hours_per_day": 8.0,
+      "subjects": {"Physics": 65, "Chemistry": 78, "Biology": 82},
+      "strengths": ["Botany", "Inorganic Chemistry", "Modern Physics"],
+      "weaknesses": ["Mechanics", "Organic Chemistry", "Human Physiology"],
+      "performance_metrics": [
+        {"subject": "Biology", "topic": "Botany", "score": 90, "test_type": "mock", "date_taken": "2026-03-02", "time_spent_minutes": 40},
+        {"subject": "Biology", "topic": "Human Physiology", "score": 55, "test_type": "mock", "date_taken": "2026-03-02", "time_spent_minutes": 50},
+        {"subject": "Biology", "topic": "Genetics", "score": 78, "test_type": "practice", "date_taken": "2026-03-09", "time_spent_minutes": 35},
+        {"subject": "Physics", "topic": "Mechanics", "score": 45, "test_type": "mock", "date_taken": "2026-03-02", "time_spent_minutes": 55},
+        {"subject": "Physics", "topic": "Modern Physics", "score": 80, "test_type": "mock", "date_taken": "2026-03-02", "time_spent_minutes": 30},
+        {"subject": "Physics", "topic": "Optics", "score": 68, "test_type": "practice", "date_taken": "2026-03-11", "time_spent_minutes": 40},
+        {"subject": "Chemistry", "topic": "Inorganic Chemistry", "score": 85, "test_type": "mock", "date_taken": "2026-03-02", "time_spent_minutes": 35},
+        {"subject": "Chemistry", "topic": "Organic Chemistry", "score": 52, "test_type": "mock", "date_taken": "2026-03-02", "time_spent_minutes": 60},
+        {"subject": "Chemistry", "topic": "Physical Chemistry", "score": 70, "test_type": "practice", "date_taken": "2026-03-13", "time_spent_minutes": 45}
+      ],
+      "tasks": [
+        {"subject": "Physics", "topic": "Mechanics", "description": "Study Newton's Laws — NCERT + DC Pandey", "task_type": "study", "priority": "high", "estimated_hours": 2.5, "scheduled_date": "2026-03-17", "completed": true, "resources": [{"type": "book", "title": "DC Pandey Mechanics", "url": ""}]},
+        {"subject": "Physics", "topic": "Mechanics", "description": "Solve 25 problems on Work, Energy, Power", "task_type": "practice", "priority": "high", "estimated_hours": 2.0, "scheduled_date": "2026-03-18", "completed": false, "resources": []},
+        {"subject": "Biology", "topic": "Human Physiology", "description": "Read NCERT Chapter: Digestion and Absorption", "task_type": "study", "priority": "high", "estimated_hours": 1.5, "scheduled_date": "2026-03-18", "completed": true, "resources": [{"type": "book", "title": "NCERT Biology Ch 16", "url": ""}]},
+        {"subject": "Biology", "topic": "Human Physiology", "description": "Diagram practice: heart structure, nephron, neuron", "task_type": "revision", "priority": "medium", "estimated_hours": 1.0, "scheduled_date": "2026-03-19", "completed": false, "resources": []},
+        {"subject": "Chemistry", "topic": "Organic Chemistry", "description": "Revise IUPAC nomenclature rules", "task_type": "revision", "priority": "high", "estimated_hours": 1.5, "scheduled_date": "2026-03-19", "completed": false, "resources": [{"type": "video", "title": "IUPAC Naming Masterclass", "url": "https://example.com/iupac"}]},
+        {"subject": "Chemistry", "topic": "Organic Chemistry", "description": "Practice GOC (General Organic Chemistry) problems", "task_type": "practice", "priority": "medium", "estimated_hours": 2.0, "scheduled_date": "2026-03-20", "completed": false, "resources": []}
+      ]
+    },
+    {
+      "name": "Rahul Verma",
+      "grade": "11th",
+      "exam_target": "JEE Advanced",
+      "target_score": 200,
+      "current_score": 110,
+      "study_hours_per_day": 6.0,
+      "subjects": {"Physics": 58, "Chemistry": 55, "Mathematics": 70},
+      "strengths": ["Trigonometry", "Vectors", "Atomic Structure"],
+      "weaknesses": ["Rotational Motion", "Electrochemistry", "Probability"],
+      "performance_metrics": [
+        {"subject": "Mathematics", "topic": "Trigonometry", "score": 82, "test_type": "mock", "date_taken": "2026-03-03", "time_spent_minutes": 35},
+        {"subject": "Mathematics", "topic": "Probability", "score": 40, "test_type": "mock", "date_taken": "2026-03-03", "time_spent_minutes": 45},
+        {"subject": "Mathematics", "topic": "Vectors", "score": 78, "test_type": "practice", "date_taken": "2026-03-10", "time_spent_minutes": 30},
+        {"subject": "Physics", "topic": "Rotational Motion", "score": 35, "test_type": "mock", "date_taken": "2026-03-03", "time_spent_minutes": 50},
+        {"subject": "Physics", "topic": "Vectors", "score": 75, "test_type": "mock", "date_taken": "2026-03-03", "time_spent_minutes": 25},
+        {"subject": "Physics", "topic": "Kinematics", "score": 62, "test_type": "practice", "date_taken": "2026-03-12", "time_spent_minutes": 40},
+        {"subject": "Chemistry", "topic": "Atomic Structure", "score": 80, "test_type": "mock", "date_taken": "2026-03-03", "time_spent_minutes": 30},
+        {"subject": "Chemistry", "topic": "Electrochemistry", "score": 38, "test_type": "mock", "date_taken": "2026-03-03", "time_spent_minutes": 55},
+        {"subject": "Chemistry", "topic": "Chemical Bonding", "score": 65, "test_type": "practice", "date_taken": "2026-03-14", "time_spent_minutes": 40}
+      ],
+      "tasks": [
+        {"subject": "Physics", "topic": "Rotational Motion", "description": "Study moment of inertia concepts from Irodov", "task_type": "study", "priority": "high", "estimated_hours": 2.0, "scheduled_date": "2026-03-17", "completed": false, "resources": [{"type": "book", "title": "Irodov Problems", "url": ""}]},
+        {"subject": "Physics", "topic": "Rotational Motion", "description": "Watch lecture on torque and angular momentum", "task_type": "study", "priority": "high", "estimated_hours": 1.5, "scheduled_date": "2026-03-17", "completed": false, "resources": [{"type": "video", "title": "Rotation Lecture", "url": "https://example.com/rotation"}]},
+        {"subject": "Chemistry", "topic": "Electrochemistry", "description": "Read NCERT Chapter: Electrochemistry + make notes", "task_type": "study", "priority": "high", "estimated_hours": 2.0, "scheduled_date": "2026-03-18", "completed": false, "resources": [{"type": "book", "title": "NCERT Chemistry Ch 3", "url": ""}]},
+        {"subject": "Mathematics", "topic": "Probability", "description": "Study Bayes theorem and conditional probability", "task_type": "study", "priority": "high", "estimated_hours": 1.5, "scheduled_date": "2026-03-19", "completed": false, "resources": []},
+        {"subject": "Mathematics", "topic": "Probability", "description": "Solve 20 probability problems from RD Sharma", "task_type": "practice", "priority": "medium", "estimated_hours": 2.0, "scheduled_date": "2026-03-19", "completed": false, "resources": [{"type": "book", "title": "RD Sharma Class 11", "url": ""}]},
+        {"subject": "Chemistry", "topic": "Electrochemistry", "description": "Practice Nernst equation numerical problems", "task_type": "practice", "priority": "medium", "estimated_hours": 1.5, "scheduled_date": "2026-03-20", "completed": false, "resources": []}
+      ]
+    }
+  ]
+}
