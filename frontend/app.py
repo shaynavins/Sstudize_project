@@ -1,7 +1,26 @@
 import streamlit as st
 import sys
+import subprocess
+import time
+import requests
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
+
+# Auto-start FastAPI backend if not already running
+def _ensure_backend():
+    try:
+        requests.get("http://localhost:7860/api/health", timeout=2)
+    except Exception:
+        project_root = str(Path(__file__).parent.parent)
+        subprocess.Popen(
+            [sys.executable, "-m", "uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "7860"],
+            cwd=project_root,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        time.sleep(3)  # Wait for backend to start
+
+_ensure_backend()
 
 from frontend.utils import get_student_list, api_get, track_event, inject_custom_css
 
