@@ -2,7 +2,7 @@ from typing import Optional, Union
 import streamlit as st
 import requests
 
-API_BASE = "http://localhost:8000/api"
+API_BASE = "http://localhost:7860/api"
 
 
 def get_headers():
@@ -86,6 +86,100 @@ def check_role(allowed_roles):
         st.error(f"Access denied. This page is for {', '.join(allowed_roles)} only.")
         st.stop()
     return role
+
+
+# --------------- Custom Styling ---------------
+
+def inject_custom_css():
+    """Inject custom CSS to improve the look of all pages."""
+    st.markdown("""
+    <style>
+    /* ---- Global ---- */
+    .block-container { padding-top: 2rem; }
+    h1 { font-weight: 700 !important; letter-spacing: -0.5px; }
+    h2, h3 { font-weight: 600 !important; }
+
+    /* ---- Metric cards ---- */
+    [data-testid="stMetric"] {
+        background: linear-gradient(135deg, #161B22 0%, #1C2333 100%);
+        border: 1px solid #30363D;
+        border-radius: 12px;
+        padding: 16px 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    [data-testid="stMetricLabel"] {
+        font-size: 0.85rem !important;
+        color: #8B949E !important;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    [data-testid="stMetricValue"] {
+        font-size: 1.8rem !important;
+        font-weight: 700 !important;
+    }
+
+    /* ---- Sidebar ---- */
+    [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #0D1117 0%, #161B22 100%) !important;
+        border-right: 1px solid #21262D;
+    }
+    [data-testid="stSidebar"] .stTitle { font-size: 1.4rem !important; }
+
+    /* ---- Buttons ---- */
+    .stButton > button[kind="primary"] {
+        background: linear-gradient(135deg, #6C63FF, #5A54D6) !important;
+        border: none !important;
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+        transition: all 0.2s ease;
+    }
+    .stButton > button[kind="primary"]:hover {
+        background: linear-gradient(135deg, #7B73FF, #6C63FF) !important;
+        box-shadow: 0 4px 12px rgba(108,99,255,0.4) !important;
+    }
+    .stButton > button[kind="secondary"] {
+        border-radius: 8px !important;
+        border: 1px solid #30363D !important;
+    }
+
+    /* ---- Expanders ---- */
+    .streamlit-expanderHeader {
+        background-color: #161B22 !important;
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+    }
+
+    /* ---- Tabs ---- */
+    .stTabs [data-baseweb="tab"] {
+        border-radius: 8px 8px 0 0;
+        font-weight: 600;
+    }
+
+    /* ---- Dividers ---- */
+    hr { border-color: #21262D !important; margin: 1.5rem 0 !important; }
+
+    /* ---- Cards (containers) ---- */
+    [data-testid="stExpander"] {
+        border: 1px solid #30363D !important;
+        border-radius: 12px !important;
+        overflow: hidden;
+    }
+
+    /* ---- Progress bar ---- */
+    .stProgress > div > div { border-radius: 8px; }
+
+    /* ---- Form ---- */
+    [data-testid="stForm"] {
+        border: 1px solid #30363D !important;
+        border-radius: 12px !important;
+        padding: 20px !important;
+        background: #161B22 !important;
+    }
+
+    /* ---- Plotly charts ---- */
+    .js-plotly-plot { border-radius: 12px; overflow: hidden; }
+    </style>
+    """, unsafe_allow_html=True)
 
 
 # --------------- Clickstream tracking ---------------

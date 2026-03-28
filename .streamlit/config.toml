@@ -5,8 +5,8 @@ address = "0.0.0.0"
 
 [theme]
 base = "dark"
-primaryColor = "#00D4AA"
-backgroundColor = "#0E1117"
-secondaryBackgroundColor = "#1A1D24"
-textColor = "#E0E0E0"
+primaryColor = "#6C63FF"
+backgroundColor = "#0F1116"
+secondaryBackgroundColor = "#161B22"
+textColor = "#E6EDF3"
 font = "sans serif"

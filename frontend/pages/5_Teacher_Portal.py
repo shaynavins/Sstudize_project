@@ -3,9 +3,10 @@ import sys
 import requests
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-from frontend.utils import api_get, api_post, api_put, get_selected_student_id, require_api_key, check_role, get_headers, API_BASE, track_event
+from frontend.utils import api_get, api_post, api_put, get_selected_student_id, require_api_key, check_role, get_headers, API_BASE, track_event, inject_custom_css
 
 st.set_page_config(page_title="Teacher Portal", layout="wide")
+inject_custom_css()
 st.title("Teacher Portal")
 track_event("page_view", "Teacher Portal")
 

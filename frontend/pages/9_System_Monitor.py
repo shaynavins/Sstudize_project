@@ -2,13 +2,14 @@ import streamlit as st
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-from frontend.utils import api_get, check_role, track_event
+from frontend.utils import api_get, check_role, track_event, inject_custom_css
 
 import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
 
 st.set_page_config(page_title="System Monitor", layout="wide")
+inject_custom_css()
 st.title("System Monitor")
 track_event("page_view", "System Monitor")
 
