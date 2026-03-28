@@ -78,12 +78,26 @@ with c2:
     if st.button("Check for Conflicts"):
         result = api_post(f"hitl/resolve-conflicts/{student_id}")
         if result:
+            st.session_state["conflict_result"] = result
             if result.get("conflicts_found", 0) > 0:
                 for conflict in result["conflicts"]:
                     st.warning(f"**{conflict['type']}**: {conflict['description']}")
                     st.info(f"Resolution: {conflict['resolution_detail']}")
             else:
                 st.success("No conflicts detected!")
+    # Show "Apply & Regenerate" if conflicts were found
+    if st.session_state.get("conflict_result", {}).get("conflicts_found", 0) > 0:
+        if st.button("Apply Resolutions & Regenerate Roadmap", type="primary"):
+            if require_api_key():
+                with st.spinner("Resolving conflicts and regenerating roadmap..."):
+                    regen = api_post(f"roadmap/regenerate/{student_id}")
+                    if regen:
+                        st.success("Conflicts applied and roadmap regenerated!")
+                        if regen.get("conflicts", {}).get("conflicts_found", 0) > 0:
+                            for c in regen["conflicts"]["conflicts"]:
+                                st.caption(f"{c['type']}: {c['resolution_detail']}")
+                        st.session_state.pop("conflict_result", None)
+                        st.rerun()
 
 st.divider()
 with st.expander("System Analytics"):

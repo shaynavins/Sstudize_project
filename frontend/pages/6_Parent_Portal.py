@@ -33,6 +33,30 @@ if dashboard:
     st.progress(min(current / max(target, 1), 1.0), text=f"Score: {current} / {target}")
 
 st.divider()
+st.subheader("Current Study Plan")
+roadmaps = api_get(f"roadmap/{student_id}")
+if roadmaps:
+    latest = roadmaps[0]
+    st.write(f"**Week {latest['week_number']}** ({latest['start_date']} to {latest['end_date']})")
+    approved = "Approved by teacher" if latest["approved_by_teacher"] else "Awaiting teacher review"
+    st.caption(f"Status: {latest['status']} | {approved}")
+    if latest.get("goals"):
+        for g in latest["goals"]:
+            st.write(f"  - {g}")
+    tasks = api_get(f"roadmap/tasks/{student_id}")
+    if tasks:
+        pending_tasks = [t for t in tasks if not t["completed"]]
+        done_tasks = [t for t in tasks if t["completed"]]
+        if pending_tasks:
+            with st.expander(f"Upcoming tasks ({len(pending_tasks)})"):
+                for t in pending_tasks:
+                    st.write(f"- **{t['subject']}** / {t['topic']}: {t['description']} ({t['priority']}, {t['estimated_hours']}h)")
+        if done_tasks:
+            st.success(f"{len(done_tasks)} task(s) completed!")
+else:
+    st.info("No study plan generated yet.")
+
+st.divider()
 st.subheader("Submit Observation")
 with st.form("parent_observation"):
     c1, c2 = st.columns(2)
@@ -48,7 +72,16 @@ with st.form("parent_observation"):
         content = {"stress_level": stress_level, "study_pattern": study_pattern, "sleep_hours": sleep_hours, "distractions": distractions, "health_issues": health_issues if health_issues else None, "additional_notes": notes}
         result = api_post("hitl/feedback", {"student_id": student_id, "source": "parent", "feedback_type": "observation", "content": content})
         if result:
-            st.success("Observation submitted!")
+            # Show processing flags from the backend
+            proc = result.get("content", {}).get("_processing", {})
+            if proc.get("priority") == "high":
+                st.warning("Your observation was flagged as **urgent**. The teacher will be notified.")
+                if proc.get("flags"):
+                    st.caption(f"Flags: {', '.join(proc['flags'])}")
+                if proc.get("recommend_load_reduction"):
+                    st.info("Recommendation: Study load reduction suggested based on high stress.")
+            else:
+                st.success("Observation submitted and processed!")
 
 st.divider()
 st.subheader("Request Goal Adjustment")
@@ -61,4 +94,26 @@ with st.form("goal_adjustment"):
         content = {"adjustment_type": adj_type, "reason": reason, "details": details, "duration_days": duration}
         result = api_post("hitl/feedback", {"student_id": student_id, "source": "parent", "feedback_type": "goal_adjustment", "content": content})
         if result:
-            st.success("Adjustment request submitted!")
+            proc = result.get("content", {}).get("_processing", {})
+            if proc.get("priority") == "high":
+                st.warning("Adjustment request marked as **urgent** due to health/burnout concern.")
+            else:
+                st.success("Adjustment request submitted!")
+
+st.divider()
+st.subheader("My Feedback History")
+my_feedback = api_get(f"hitl/feedback/{student_id}?source=parent")
+if my_feedback:
+    for fb in my_feedback:
+        status_label = "Applied" if fb["resolved"] else ("Urgent" if fb.get("status") == "urgent" else "Pending")
+        icon = "🔴" if fb.get("status") == "urgent" and not fb["resolved"] else ("✅" if fb["resolved"] else "🟡")
+        with st.expander(f"{icon} [{fb['feedback_type']}] {status_label} - {fb['created_at'][:10]}"):
+            content = fb.get("content", {})
+            display = {k: v for k, v in content.items() if k != "_processing"}
+            for k, v in display.items():
+                st.write(f"**{k.replace('_', ' ').title()}:** {v}")
+            proc = content.get("_processing", {})
+            if proc:
+                st.caption(f"Priority: {proc.get('priority', 'N/A')} | Flags: {', '.join(proc.get('flags', []))}")
+else:
+    st.info("No feedback submitted yet.")

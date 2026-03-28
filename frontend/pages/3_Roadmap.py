@@ -13,14 +13,25 @@ if not student_id:
     st.warning("Select a student from the sidebar.")
     st.stop()
 
-col1, col2 = st.columns(2)
+# Show pending feedback that will be consumed on next generation
+pending_fb = api_get(f"hitl/feedback/{student_id}/pending")
+if pending_fb:
+    fb_count = len(pending_fb)
+    urgent_count = sum(1 for f in pending_fb if f.get("status") == "urgent")
+    msg = f"{fb_count} pending feedback item(s) will be incorporated into the next roadmap."
+    if urgent_count:
+        st.warning(f"{msg} ({urgent_count} urgent)")
+    else:
+        st.info(msg)
+
+col1, col2, col3 = st.columns(3)
 with col1:
     if st.button("Generate Roadmap (Direct)", type="primary"):
         if require_api_key():
             with st.spinner("Generating roadmap with GPT..."):
                 result = api_post(f"roadmap/generate/{student_id}")
                 if result:
-                    st.success("Roadmap generated!")
+                    st.success("Roadmap generated! Old tasks replaced.")
                     st.rerun()
 with col2:
     if st.button("Generate Roadmap (Agent)"):
@@ -33,6 +44,18 @@ with col2:
                         with st.expander("Agent Reasoning Steps"):
                             for step in result["steps"]:
                                 st.write(f"**{step['action']}** -> {step['output'][:200]}...")
+with col3:
+    if pending_fb:
+        if st.button("Resolve Conflicts & Regenerate"):
+            if require_api_key():
+                with st.spinner("Resolving conflicts and regenerating..."):
+                    result = api_post(f"roadmap/regenerate/{student_id}")
+                    if result:
+                        conflicts = result.get("conflicts", {})
+                        if conflicts.get("conflicts_found", 0) > 0:
+                            st.warning(f"{conflicts['conflicts_found']} conflict(s) resolved.")
+                        st.success("Roadmap regenerated with feedback!")
+                        st.rerun()
 
 st.divider()
 st.subheader("Study Tasks")

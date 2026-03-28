@@ -5,13 +5,13 @@ from sqlalchemy.orm import Session
 from backend.database import get_db
 from backend.deps import require_api_key
 from backend.models import WeeklyReportDB, WeeklyReportResponse
-from agents.orchestrator import run_single_agent, run_full_pipeline
 
 router = APIRouter(prefix="/api/monitoring", tags=["Monitoring"])
 
 
 @router.post("/run/{student_id}")
 def run_monitoring_agent(student_id: int, api_key: str = Depends(require_api_key)):
+    from agents.orchestrator import run_single_agent
     result = run_single_agent("monitoring", student_id, api_key)
     if result.get("status") == "error":
         raise HTTPException(status_code=500, detail=result.get("error"))
@@ -20,6 +20,7 @@ def run_monitoring_agent(student_id: int, api_key: str = Depends(require_api_key
 
 @router.post("/review/{student_id}")
 def run_review_agent(student_id: int, api_key: str = Depends(require_api_key)):
+    from agents.orchestrator import run_single_agent
     result = run_single_agent("review", student_id, api_key)
     if result.get("status") == "error":
         raise HTTPException(status_code=500, detail=result.get("error"))
@@ -28,6 +29,7 @@ def run_review_agent(student_id: int, api_key: str = Depends(require_api_key)):
 
 @router.post("/pipeline/{student_id}")
 def run_agent_pipeline(student_id: int, api_key: str = Depends(require_api_key)):
+    from agents.orchestrator import run_full_pipeline
     return run_full_pipeline(student_id, api_key)
 
 
