@@ -2,13 +2,14 @@ import streamlit as st
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-from frontend.utils import api_get, api_post, api_put, get_selected_student_id, require_api_key, check_role
+from frontend.utils import api_get, api_post, api_put, get_selected_student_id, require_api_key, check_role, track_event
 
 import plotly.express as px
 import pandas as pd
 
 st.set_page_config(page_title="Student Profile", layout="wide")
 st.title("Student Profile")
+track_event("page_view", "Student Profile")
 
 check_role(["student", "teacher", "parent"])
 student_id = get_selected_student_id()

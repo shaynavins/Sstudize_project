@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from frontend.utils import get_student_list, api_get
+from frontend.utils import get_student_list, api_get, track_event
 
 st.set_page_config(page_title="Sstudize", page_icon="S", layout="wide", initial_sidebar_state="expanded")
 
@@ -78,13 +78,14 @@ with st.sidebar:
     st.caption("Your pages:")
     page_access = {
         "student": ["Student Profile", "SWOT Analysis", "Roadmap", "Dashboard"],
-        "teacher": ["Student Profile", "SWOT Analysis", "Roadmap", "Monitoring", "Teacher Portal", "Dashboard"],
+        "teacher": ["Student Profile", "SWOT Analysis", "Roadmap", "Monitoring", "Teacher Portal", "Dashboard", "Clickstream Analytics", "System Monitor"],
         "parent": ["Student Profile", "Parent Portal", "Dashboard"],
     }
     for page in page_access.get(role, []):
         st.write(f"- {page}")
 
 st.title(f"Sstudize - {role.title()} View")
+track_event("page_view", "Home")
 
 if st.session_state.get("selected_student_id"):
     dashboard = api_get(f"dashboard/{st.session_state['selected_student_id']}")

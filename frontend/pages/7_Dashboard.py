@@ -2,7 +2,7 @@ import streamlit as st
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-from frontend.utils import api_get, api_post, api_put, get_selected_student_id, require_api_key, check_role
+from frontend.utils import api_get, api_post, api_put, get_selected_student_id, require_api_key, check_role, track_event
 
 import plotly.express as px
 import plotly.graph_objects as go
@@ -10,6 +10,7 @@ import pandas as pd
 
 st.set_page_config(page_title="Dashboard", layout="wide")
 st.title("Shared Dashboard")
+track_event("page_view", "Dashboard")
 
 check_role(["student", "teacher", "parent"])
 student_id = get_selected_student_id()
@@ -100,16 +101,42 @@ with c2:
                         st.rerun()
 
 st.divider()
-with st.expander("System Analytics"):
-    analytics = api_get("dashboard/analytics/summary")
-    if analytics:
-        c1, c2, c3 = st.columns(3)
-        with c1:
-            st.metric("Total Students", analytics.get("total_students", 0))
-            st.metric("Total Tasks", analytics.get("total_tasks", 0))
-        with c2:
-            st.metric("Completion Rate", f"{analytics.get('task_completion_rate', 0)}%")
-            st.metric("Feedback Items", analytics.get("total_feedback_items", 0))
-        with c3:
-            st.metric("Weekly Reports", analytics.get("total_weekly_reports", 0))
-            st.metric("Agent Runs", analytics.get("agent_invocations", 0))
+st.subheader("System Overview")
+analytics = api_get("dashboard/analytics/summary")
+health = api_get("system/health")
+bottlenecks = api_get("system/bottlenecks?days=7")
+
+if analytics:
+    c1, c2, c3, c4, c5, c6 = st.columns(6)
+    with c1:
+        st.metric("Students", analytics.get("total_students", 0))
+    with c2:
+        st.metric("Tasks", analytics.get("total_tasks", 0))
+    with c3:
+        st.metric("Completion", f"{analytics.get('task_completion_rate', 0)}%")
+    with c4:
+        st.metric("Feedback", analytics.get("total_feedback_items", 0))
+    with c5:
+        st.metric("Reports", analytics.get("total_weekly_reports", 0))
+    with c6:
+        st.metric("Agent Runs", analytics.get("agent_invocations", 0))
+
+c1, c2 = st.columns(2)
+with c1:
+    if health:
+        status = health.get("status", "unknown")
+        color = "#4CAF50" if status == "healthy" else "#F44336"
+        st.markdown(f"**System:** <span style='color:{color}'>{status.upper()}</span> | "
+                    f"**Uptime:** {health.get('uptime_human', 'N/A')} | "
+                    f"**DB:** {health.get('database', 'N/A')}", unsafe_allow_html=True)
+with c2:
+    if bottlenecks:
+        agents = bottlenecks.get("agent_performance", [])
+        slow_count = bottlenecks.get("slow_request_count", 0)
+        if agents:
+            agent_summary = " | ".join(f"{a['agent']}: {a['avg_ms']:.0f}ms" for a in agents)
+            st.caption(f"Agent perf: {agent_summary}")
+        if slow_count > 0:
+            st.warning(f"{slow_count} slow request(s) detected in last 7 days")
+        else:
+            st.caption("No bottlenecks detected")

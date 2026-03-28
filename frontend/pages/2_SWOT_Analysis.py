@@ -2,10 +2,11 @@ import streamlit as st
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-from frontend.utils import api_get, api_post, api_put, get_selected_student_id, require_api_key, check_role
+from frontend.utils import api_get, api_post, api_put, get_selected_student_id, require_api_key, check_role, track_event
 
 st.set_page_config(page_title="SWOT Analysis", layout="wide")
 st.title("SWOT Analysis")
+track_event("page_view", "SWOT Analysis")
 
 check_role(["student", "teacher"])
 student_id = get_selected_student_id()

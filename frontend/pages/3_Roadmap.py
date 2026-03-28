@@ -2,10 +2,11 @@ import streamlit as st
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-from frontend.utils import api_get, api_post, api_put, get_selected_student_id, require_api_key, check_role
+from frontend.utils import api_get, api_post, api_put, get_selected_student_id, require_api_key, check_role, track_event
 
 st.set_page_config(page_title="Study Roadmap", layout="wide")
 st.title("Study Roadmap")
+track_event("page_view", "Roadmap")
 
 check_role(["student", "teacher"])
 student_id = get_selected_student_id()
@@ -31,6 +32,7 @@ with col1:
             with st.spinner("Generating roadmap with GPT..."):
                 result = api_post(f"roadmap/generate/{student_id}")
                 if result:
+                    track_event("feature_use", "Roadmap", "generate_direct")
                     st.success("Roadmap generated! Old tasks replaced.")
                     st.rerun()
 with col2:
@@ -39,6 +41,7 @@ with col2:
             with st.spinner("Running Roadmap Agent (30-60s)..."):
                 result = api_post(f"roadmap/agent-generate/{student_id}")
                 if result:
+                    track_event("feature_use", "Roadmap", "generate_agent")
                     st.success("Agent-generated roadmap ready!")
                     if result.get("steps"):
                         with st.expander("Agent Reasoning Steps"):

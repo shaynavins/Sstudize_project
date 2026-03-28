@@ -86,3 +86,34 @@ def check_role(allowed_roles):
         st.error(f"Access denied. This page is for {', '.join(allowed_roles)} only.")
         st.stop()
     return role
+
+
+# --------------- Clickstream tracking ---------------
+
+import uuid
+
+def _get_session_id():
+    """Get or create a unique session ID for clickstream tracking."""
+    if "clickstream_session_id" not in st.session_state:
+        st.session_state["clickstream_session_id"] = str(uuid.uuid4())[:12]
+    return st.session_state["clickstream_session_id"]
+
+
+def track_event(event_type, page, action=None, metadata=None):
+    """Send a clickstream event to the backend (fire-and-forget)."""
+    try:
+        requests.post(
+            f"{API_BASE}/clickstream/track",
+            json={
+                "event_type": event_type,
+                "page": page,
+                "action": action,
+                "user_role": st.session_state.get("user_role", "unknown"),
+                "student_id": st.session_state.get("selected_student_id"),
+                "session_id": _get_session_id(),
+                "metadata": metadata,
+            },
+            timeout=2,
+        )
+    except Exception:
+        pass  # never block the UI for analytics
