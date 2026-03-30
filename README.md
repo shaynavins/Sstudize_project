@@ -13,7 +13,7 @@ An AI-driven personalized study roadmap system for competitive exam preparation 
 - **Analytics**: Custom clickstream logging
 - **Deployment**: Azure
 
-##Current vs expected architecture
+## Current vs expected architecture
 
 1. Containerized Application
 Docker-based deployment
